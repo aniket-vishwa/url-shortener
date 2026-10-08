@@ -18,6 +18,7 @@ class User extends Authenticatable
         'password',
         'company_id',
         'role',
+        'email_verified_at',
     ];
 
     protected $hidden = [
@@ -41,5 +42,20 @@ class User extends Authenticatable
     public function shortUrls()
     {
         return $this->hasMany(ShortUrl::class);
+    }
+
+    public function isSuperAdmin()
+    {
+        return $this->role === 'SuperAdmin';
+    }
+
+    public function isAdmin()
+    {
+        return $this->role === 'Admin';
+    }
+
+    public function isMember()
+    {
+        return $this->role === 'Member';
     }
 }

@@ -10,6 +10,9 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     {{ __("You're logged in!") }}
+                    @if (auth()->user()->isSuperAdmin() || auth()->user()->isAdmin())
+    <p class="mt-4"><a href="{{ route('invitations.create') }}" class="underline">Invite a user</a></p>
+@endif
                 </div>
             </div>
         </div>
