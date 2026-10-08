@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ShortUrlController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -21,6 +22,16 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'role:SuperAdmin,Admin'])->group(function () {
     Route::get('/invitations/create', [InvitationController::class, 'create'])->name('invitations.create');
     Route::post('/invitations', [InvitationController::class, 'store'])->name('invitations.store');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/short-urls', [ShortUrlController::class, 'index'])
+        ->middleware('role:SuperAdmin,Admin,Member')
+        ->name('short-urls.index');
+
+    Route::post('/short-urls', [ShortUrlController::class, 'store'])
+        ->middleware('role:Admin,Member')
+        ->name('short-urls.store');
 });
 
 Route::get('/invite/{token}', [InvitationController::class, 'accept'])->name('invitations.accept');
