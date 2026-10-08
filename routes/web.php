@@ -38,4 +38,5 @@ Route::get('/invite/{token}', [InvitationController::class, 'accept'])->name('in
 Route::post('/invite/{token}', [InvitationController::class, 'complete'])->name('invitations.complete');
 Route::get('/s/{code}', [ShortUrlController::class, 'redirect'])->name('short-urls.redirect');
 
+
 require __DIR__.'/auth.php';
