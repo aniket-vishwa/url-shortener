@@ -45,4 +45,11 @@ class ShortUrlController extends Controller
 
         return redirect()->route('short-urls.index');
     }
+
+    public function redirect($code)
+    {
+        $shortUrl = ShortUrl::where('short_code', $code)->firstOrFail();
+
+        return redirect()->away($shortUrl->original_url);
+    }
 }
